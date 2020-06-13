@@ -6,15 +6,21 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
-import "./layout.css"
+import "../styles/layout.css"
+import { SiteTitleIndexQuery } from "types/graphql-types"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
+interface Props {
+  children: React.ReactNode
+}
+
+interface State {}
+
+const Layout = ({ children }: Props) => {
+  const data = useStaticQuery<SiteTitleIndexQuery>(graphql`
+    query SiteTitleIndex {
       site {
         siteMetadata {
           title
@@ -25,7 +31,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header siteTitle={data.site?.siteMetadata?.title ?? ""} />
       <div
         style={{
           margin: `0 auto`,
@@ -42,10 +48,6 @@ const Layout = ({ children }) => {
       </div>
     </>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Layout
