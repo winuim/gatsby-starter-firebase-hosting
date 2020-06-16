@@ -2,6 +2,7 @@ import * as React from "react"
 import * as Yup from "yup"
 import { Formik, Form, Field } from "formik"
 import { TextField } from "formik-material-ui"
+import firebase from "gatsby-plugin-firebase"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import Container from "@material-ui/core/Container"
@@ -117,6 +118,14 @@ export default function FormikPage() {
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 setSubmitting(false)
+                const functions = firebase.functions()
+                // if (process.env.NODE_ENV != "productions") {
+                //   functions.useFunctionsEmulator("http://localhost:5001")
+                // }
+                let saveInquiry = functions.httpsCallable("saveInquiry")
+                saveInquiry(values).then(result => {
+                  console.log(result)
+                })
                 alert(JSON.stringify(values, null, 2))
               }, 500)
             }}
@@ -235,6 +244,7 @@ export default function FormikPage() {
           </Formik>
         </div>
       </main>
+      <br />
       <footer>
         <Typography variant="body2" color="textSecondary" align="center">
           {"Copyright © Rockhopper Developer"} {new Date().getFullYear()}
