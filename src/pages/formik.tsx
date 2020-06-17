@@ -126,6 +126,10 @@ export default function FormikPage() {
                 saveInquiry(values).then(result => {
                   console.log(result)
                 })
+                let sendMail = functions.httpsCallable("sendMail")
+                sendMail(values).then(result => {
+                  console.log(result)
+                })
                 alert(JSON.stringify(values, null, 2))
               }, 500)
             }}

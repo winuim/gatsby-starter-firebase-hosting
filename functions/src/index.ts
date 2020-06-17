@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin"
 import * as functions from "firebase-functions"
 import * as corsLib from "cors"
+import * as sgMail from "@sendgrid/mail"
 
 const cors = corsLib()
 
@@ -30,10 +31,10 @@ export const echo = functions.https.onCall(async (data, context) => {
 })
 
 export const saveInquiry = functions.https.onCall(async (data, context) => {
-  const today = new Date();
-  data["createdAt"] = today.toISOString();
+  const today = new Date()
+  data["createdAt"] = today.toISOString()
   data["createdBy"] = context.rawRequest.ip ?? ""
-  data["updatedAt"] = today.toISOString();
+  data["updatedAt"] = today.toISOString()
   data["updatedBy"] = context.rawRequest.ip ?? ""
   //write
   await admin
@@ -52,4 +53,29 @@ export const saveInquiry = functions.https.onCall(async (data, context) => {
   const snapshots = await admin.firestore().collection("Inquiry").get()
   const docs = snapshots.docs.map(doc => doc.data())
   return docs.length
+})
+
+sgMail.setApiKey(functions.config().sendgrid.apikey)
+export const sendMail = functions.https.onCall(async (data, context) => {
+  const msg = {
+    to: functions.config().sendgrid.to,
+    from: functions.config().sendgrid.from,
+    templateId: functions.config().sendgrid.templateid,
+    dynamic_template_data: data,
+  }
+  await sgMail
+    .send(msg)
+    .then(result => {
+      console.log(result[0].statusCode)
+      console.log(result[0].headers)
+      console.log(result[0].body)
+      return result[0].statusCode
+    })
+    .catch(error => {
+      console.error(error)
+      if (error.response) {
+        console.error(error.response.body)
+      }
+      return error
+    })
 })
