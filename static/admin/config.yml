@@ -1,14 +1,19 @@
 backend:
-  name: test-repo
+  name: github
+  repo: winuim/gatsby-starter-firebase-hosting
+  branch: develop
 
 media_folder: static/assets
 public_folder: /assets
+
+publish_mode: editorial_workflow
 
 collections:
   - name: blog
     label: Blog
     folder: blog
     create: true
+    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
     fields:
       - { name: path, label: Path }
       - { name: date, label: Date, widget: datetime }
