@@ -11,6 +11,11 @@ module.exports = {
     title: `Gatsby Default Starter`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
+    authors: [
+      { name: "Tori", slug: "tori" },
+      { name: "Neko", slug: "neko" },
+      { name: "Inu", slug: "inu" },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -19,6 +24,13 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/static/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/blog`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -72,5 +84,14 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/blog`,
+        name: "markdown-pages",
+      },
+    },
+    `gatsby-plugin-typescript`,
   ],
 }
