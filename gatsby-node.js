@@ -10,5 +10,6 @@ require("ts-node").register({
     target: "esnext",
   },
 })
-exports.onCreateNode = require("./gatsby-node/onCreateNode").onCreateNode
-exports.createPages = require("./gatsby-node/createPages").createPages
+
+exports.onCreateNode = require("./src/gatsby-node/onCreateNode").onCreateNode
+exports.createPages = require("./src/gatsby-node/createPages").createPages

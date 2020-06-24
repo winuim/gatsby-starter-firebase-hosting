@@ -1,7 +1,7 @@
 import path from "path"
 import { GatsbyNode } from "gatsby"
 
-interface Authors {
+interface Author {
   name: string
   slug: string
 }
@@ -10,13 +10,13 @@ interface AuthorResult {
   site: {
     siteMetadata: {
       title: string
-      authors: Authors[]
+      authors: Author[]
     }
   }
 }
 
 export interface AuthorPageContext {
-  author: Authors
+  author: Author
 }
 
 interface Post {
@@ -61,7 +61,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   actions: { createPage },
 }) => {
   const result = await graphql<AuthorResult>(`
-    {
+    query AuthorPage {
       site {
         siteMetadata {
           title
@@ -93,7 +93,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   }
 
   const postsResult = await graphql<PostsResult>(`
-    {
+    query PostsPage {
       allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
         edges {
           node {
@@ -120,7 +120,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   })
 
   const blogsResult = await graphql<BlogResult>(`
-    {
+    query BlogPage {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000

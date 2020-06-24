@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
 
-import { AuthorPageContext } from "gatsby-node/createPages"
+import { AuthorPageContext } from "../gatsby-node/createPages"
 
 type Props = {
   pageContext: AuthorPageContext
