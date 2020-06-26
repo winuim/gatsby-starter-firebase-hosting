@@ -11,7 +11,7 @@ module.exports = {
     title: `Gatsby Default Starter`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
-    copyright: `gatsbyjs `
+    copyright: `gatsbyjs `,
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -82,7 +82,12 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: "gatsby-plugin-netlify-cms",
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.ts`,
+      },
+    },
     `gatsby-plugin-netlify`, // make sure to keep it last in the array
   ],
 }
