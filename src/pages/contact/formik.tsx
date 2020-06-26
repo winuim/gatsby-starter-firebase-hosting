@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as Yup from "yup"
-import { Formik, Form, Field } from "formik"
+import { Formik, Field } from "formik"
 import { TextField } from "formik-material-ui"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
@@ -127,116 +127,114 @@ export default function FormikPage({ handleSubmit }: Props) {
             }}
           >
             {({ submitForm, isSubmitting }) => (
-              <Form name="formik" method="POST">
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={6}>
-                    <Field
-                      component={TextField}
-                      id="fullname"
-                      name="fullname"
-                      type="fullname"
-                      label="ご氏名"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Field
-                      component={TextField}
-                      id="kananame"
-                      name="kananame"
-                      type="kananame"
-                      label="ご氏名【カナ】"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      id="organization"
-                      name="organization"
-                      type="organization"
-                      label="会社名"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Field
-                      component={TextField}
-                      id="tel"
-                      name="tel"
-                      type="tel"
-                      label="電話番号"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Field
-                      component={TextField}
-                      id="email"
-                      name="email"
-                      type="email"
-                      label="メールアドレス"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Field
-                      component={TextField}
-                      id="inquiry-type"
-                      name="inquiryType"
-                      type="inquiryType"
-                      label="お問い合わせ項目"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                      select={true}
-                    >
-                      {menuInquiry.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </Field>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      id="inquiry-text"
-                      name="inquiryText"
-                      type="inquiryText"
-                      label="お問い合わせ内容"
-                      variant="outlined"
-                      required={true}
-                      fullWidth={true}
-                      multiline={true}
-                      rows={4}
-                    />
-                  </Grid>
-                  {isSubmitting && <LinearProgress />}
-                  <br />
-                  <Grid container justify="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      disabled={isSubmitting}
-                      onClick={submitForm}
-                      type="submit"
-                    >
-                      {"送信する"}
-                    </Button>
-                  </Grid>
+              <Grid container spacing={1}>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    id="fullname"
+                    name="fullname"
+                    type="fullname"
+                    label="ご氏名"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                  />
                 </Grid>
-              </Form>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    id="kananame"
+                    name="kananame"
+                    type="kananame"
+                    label="ご氏名【カナ】"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    component={TextField}
+                    id="organization"
+                    name="organization"
+                    type="organization"
+                    label="会社名"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    id="tel"
+                    name="tel"
+                    type="tel"
+                    label="電話番号"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="メールアドレス"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    id="inquiry-type"
+                    name="inquiryType"
+                    type="inquiryType"
+                    label="お問い合わせ項目"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                    select={true}
+                  >
+                    {menuInquiry.map(option => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    component={TextField}
+                    id="inquiry-text"
+                    name="inquiryText"
+                    type="inquiryText"
+                    label="お問い合わせ内容"
+                    variant="outlined"
+                    required={true}
+                    fullWidth={true}
+                    multiline={true}
+                    rows={4}
+                  />
+                </Grid>
+                {isSubmitting && <LinearProgress />}
+                <br />
+                <Grid container justify="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={isSubmitting}
+                    onClick={submitForm}
+                    type="submit"
+                  >
+                    {"送信する"}
+                  </Button>
+                </Grid>
+              </Grid>
             )}
           </Formik>
         </div>
