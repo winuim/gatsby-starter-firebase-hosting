@@ -1,9 +1,21 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Content, { HTMLContent } from "../components/content"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > * + *": {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  })
+)
 
 interface BlogPostTemplateProps {
   content?: string | null
@@ -22,16 +34,23 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   date,
   helmet,
 }) => {
+  const classes = useStyles()
   const PostContent = contentComponent || Content
 
   return (
-    <section className="section">
+    <>
       {helmet || ""}
-      <h1>{title}</h1>
-      <h2>{date}</h2>
-      <h2>{description}</h2>
+      <Typography className={classes.root} variant="h1">
+        {title}
+      </Typography>
+      <Typography className={classes.root} variant="h6">
+        {date}
+      </Typography>
+      <Typography className={classes.root} variant="h2">
+        {description}
+      </Typography>
       <PostContent content={content} />
-    </section>
+    </>
   )
 }
 
