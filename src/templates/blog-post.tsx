@@ -5,13 +5,14 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 export const pageQuery = graphql`
-  query BlogPost($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query BlogPostByID($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      id
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
-        path
         title
+        description
       }
       excerpt(pruneLength: 250)
     }

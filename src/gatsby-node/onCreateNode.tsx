@@ -8,12 +8,12 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({
 }) => {
   const { createNodeField } = actions
   if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `posts` })
-    console.log("slug = " + slug)
+    const value = createFilePath({ node, getNode })
+    console.log("onCreateNode slug value = " + value)
     createNodeField({
-      node,
       name: `slug`,
-      value: slug,
+      node,
+      value,
     })
   }
 }
