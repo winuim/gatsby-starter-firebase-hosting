@@ -127,13 +127,7 @@ export default function FormikPage({ handleSubmit }: Props) {
             }}
           >
             {({ submitForm, isSubmitting }) => (
-              <Form
-                name="formik"
-                method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-              >
-                <input type="hidden" name="form-name" value="formik" />
+              <Form name="formik" method="POST">
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={6}>
                     <Field
