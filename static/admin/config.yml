@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: winuim/gatsby-starter-firebase-hosting
+  name: git-gateway
   branch: develop
 
 media_folder: static/assets
