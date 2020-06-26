@@ -23,7 +23,7 @@ interface State {}
 function SEO({ description = "", lang = "en", meta = [], title }: Props) {
   const { site } = useStaticQuery<SeoIndexQuery>(
     graphql`
-      query SeoIndex{
+      query SeoIndex {
         site {
           siteMetadata {
             title
@@ -35,7 +35,7 @@ function SEO({ description = "", lang = "en", meta = [], title }: Props) {
     `
   )
 
-  const metaDescription = description || (site?.siteMetadata?.description ?? undefined)
+  const metaDescription = description || (site?.siteMetadata?.description ?? "")
 
   return (
     <Helmet
@@ -67,7 +67,7 @@ function SEO({ description = "", lang = "en", meta = [], title }: Props) {
         },
         {
           name: `twitter:creator`,
-          content: site?.siteMetadata?.author ?? undefined,
+          content: site?.siteMetadata?.author ?? "",
         },
         {
           name: `twitter:title`,

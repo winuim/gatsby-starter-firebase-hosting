@@ -7,14 +7,12 @@ import SEO from "../components/seo"
 export const pageQuery = graphql`
   query BlogPostByID($id: String!) {
     markdownRemark(id: { eq: $id }) {
-      id
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
         description
       }
-      excerpt(pruneLength: 250)
     }
   }
 `
@@ -25,19 +23,18 @@ interface Props {
       html: string
       frontmatter: {
         date: string
-        path: string
         title: string
+        description: string
       }
-      excerpt: string
     }
   }
 }
 
 const BlogPost: React.FC<Props> = ({ data }) => {
-  const { frontmatter, html, excerpt } = data.markdownRemark
+  const { frontmatter, html } = data.markdownRemark
   return (
     <Layout>
-      <SEO title={frontmatter.title} description={excerpt} />
+      <SEO title={frontmatter.title} description={frontmatter.description} />
       <h1>{frontmatter.title}</h1>
       <h2>{frontmatter.date}</h2>
       <div dangerouslySetInnerHTML={{ __html: html }} />
