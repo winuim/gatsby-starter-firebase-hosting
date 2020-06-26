@@ -1,5 +1,17 @@
-import { Link } from "gatsby"
 import React from "react"
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import Link from "@material-ui/core/Link"
+import Typography from "@material-ui/core/Typography"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > * + *": {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  })
+)
 
 interface Props {
   siteTitle?: string
@@ -7,33 +19,16 @@ interface Props {
 
 interface State {}
 
-const Header = ({ siteTitle = "" }: Props) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+const Header = ({ siteTitle = "" }: Props) => {
+  const classes = useStyles()
+
+  return (
+    <header>
+      <Typography className={classes.root} variant="h3" align="center">
+        <Link href="/">{siteTitle}</Link>
+      </Typography>
+    </header>
+  )
+}
 
 export default Header

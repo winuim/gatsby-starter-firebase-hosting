@@ -7,9 +7,11 @@
 
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import Container from "@material-ui/core/Container"
 
 import Header from "./header"
-import "../styles/layout.css"
+import Footer from "./footer"
 import { SiteTitleIndexQuery } from "types/graphql-types"
 
 interface Props {
@@ -31,23 +33,14 @@ const Layout = ({ children }: Props) => {
   `)
 
   return (
-    <>
+    <React.Fragment>
+      <CssBaseline />
       <Header siteTitle={data.site?.siteMetadata?.title ?? ""} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <Container>
         <main>{children}</main>
-        <footer>
-          ©{data.site?.siteMetadata?.copyright}
-          {new Date().getFullYear()}, Built with{` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+      </Container>
+      <Footer copyright={data.site?.siteMetadata?.copyright ?? ""} />
+    </React.Fragment>
   )
 }
 
