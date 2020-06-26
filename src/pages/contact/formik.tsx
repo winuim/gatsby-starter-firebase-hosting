@@ -2,7 +2,6 @@ import * as React from "react"
 import * as Yup from "yup"
 import { Formik, Form, Field } from "formik"
 import { TextField } from "formik-material-ui"
-import firebase from "gatsby-plugin-firebase"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import Container from "@material-ui/core/Container"
@@ -49,7 +48,11 @@ const menuInquiry = [
   },
 ]
 
-interface States {
+interface Props {
+  handleSubmit: (v: States) => void
+}
+
+export interface States {
   fullname: string
   kananame: string
   organization: string
@@ -76,7 +79,7 @@ const validation = () =>
     inquiryText: Yup.string().required("必須項目です"),
   })
 
-export default function FormikPage() {
+export default function FormikPage({ handleSubmit }: Props) {
   const classes = useStyles()
   const initValues: States = {
     fullname: "",
@@ -118,24 +121,19 @@ export default function FormikPage() {
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 setSubmitting(false)
-                const functions = firebase.functions()
-                // if (process.env.NODE_ENV != "productions") {
-                //   functions.useFunctionsEmulator("http://localhost:5001")
-                // }
-                let saveInquiry = functions.httpsCallable("saveInquiry")
-                saveInquiry(values).then(result => {
-                  console.log(result)
-                })
-                let sendMail = functions.httpsCallable("sendMail")
-                sendMail(values).then(result => {
-                  console.log(result)
-                })
+                handleSubmit(values)
                 alert(JSON.stringify(values, null, 2))
               }, 500)
             }}
           >
             {({ submitForm, isSubmitting }) => (
-              <Form name="formik" method="POST" data-netlify="true">
+              <Form
+                name="formik"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="formik" />
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={6}>
                     <Field
