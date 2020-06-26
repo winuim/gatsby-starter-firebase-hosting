@@ -11,7 +11,7 @@ import LinearProgress from "@material-ui/core/LinearProgress"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 
-import SEO from "../components/seo"
+import SEO from "../../components/seo"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -135,7 +135,7 @@ export default function FormikPage() {
             }}
           >
             {({ submitForm, isSubmitting }) => (
-              <Form>
+              <Form name="formik" method="POST" data-netlify="true">
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={6}>
                     <Field
@@ -238,6 +238,7 @@ export default function FormikPage() {
                       color="primary"
                       disabled={isSubmitting}
                       onClick={submitForm}
+                      type="submit"
                     >
                       {"送信する"}
                     </Button>
