@@ -119,7 +119,6 @@ export default function FormikPage({ handleSubmit }: Props) {
           validationSchema={validation()}
           onSubmit={(values, actions) => {
             setTimeout(() => {
-              actions.setSubmitting(false)
               if (handleSubmit) {
                 handleSubmit(values)
               } else {
@@ -134,6 +133,7 @@ export default function FormikPage({ handleSubmit }: Props) {
                   .catch(error => alert(error))
               }
               alert(JSON.stringify(values, null, 2))
+              actions.setSubmitting(false)
             }, 500)
           }}
         >
@@ -143,16 +143,11 @@ export default function FormikPage({ handleSubmit }: Props) {
               method="POST"
               data-netlify="true"
               data-netlify-recaptcha="true"
+              netlify-honeypot="bot-field"
               onSubmit={formik.handleSubmit}
             >
-              {/* You still need to add the hidden input with the form name to your JSX form */}
               <input type="hidden" name="form-name" value="formik" />
-              <p hidden={true}>
-                <label>
-                  Don’t fill this out if you're human:{" "}
-                  <input name="bot-field" />
-                </label>
-              </p>
+              <input type="hidden" name="bot-field" />
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                   <Field
