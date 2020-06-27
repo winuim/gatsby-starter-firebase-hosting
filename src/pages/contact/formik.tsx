@@ -49,7 +49,7 @@ const menuInquiry = [
 ]
 
 interface Props {
-  handleSubmit?: (v: States) => void
+  handleSubmit?: (valuse: States) => void
 }
 
 export interface States {
@@ -111,9 +111,9 @@ export default function FormikPage({ handleSubmit }: Props) {
         <Formik
           initialValues={initValues}
           validationSchema={validation()}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, actions) => {
             setTimeout(() => {
-              setSubmitting(false)
+              actions.setSubmitting(false)
               if (handleSubmit) {
                 handleSubmit(values)
               }
@@ -121,12 +121,13 @@ export default function FormikPage({ handleSubmit }: Props) {
             }, 500)
           }}
         >
-          {({ submitForm, isSubmitting }) => (
+          {formik => (
             <form
               name="formik"
-              method="post"
+              method="POST"
               data-netlify="true"
-              data-netlify-honeypot="bot-field"
+              data-netlify-recaptcha="true"
+              onSubmit={formik.handleSubmit}
             >
               {/* You still need to add the hidden input with the form name to your JSX form */}
               <input type="hidden" name="form-name" value="formik" />
@@ -230,15 +231,14 @@ export default function FormikPage({ handleSubmit }: Props) {
                     rows={4}
                   />
                 </Grid>
-                {isSubmitting && <LinearProgress />}
+                {formik.isSubmitting && <LinearProgress />}
                 <br />
                 <Grid container justify="center">
                   <div data-netlify-recaptcha="true"></div>
                   <Button
                     variant="contained"
                     color="primary"
-                    disabled={isSubmitting}
-                    onClick={submitForm}
+                    disabled={formik.isSubmitting}
                     type="submit"
                   >
                     {"送信する"}
