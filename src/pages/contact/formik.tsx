@@ -123,16 +123,15 @@ export default function FormikPage({ handleSubmit }: Props) {
               if (handleSubmit) {
                 handleSubmit(values)
               } else {
-                actions.submitForm()
-                // fetch("/", {
-                //   method: "POST",
-                //   headers: {
-                //     "Content-Type": "application/x-www-form-urlencoded",
-                //   },
-                //   body: encode({ "form-name": "contact", ...values }),
-                // })
-                //   .then(() => alert("Success!"))
-                //   .catch(error => alert(error))
+                fetch("/", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  body: encode({ "form-name": "contact", ...values }),
+                })
+                  .then(() => alert("Success!"))
+                  .catch(error => alert(error))
               }
               alert(JSON.stringify(values, null, 2))
             }, 500)
