@@ -12,7 +12,11 @@ import Typography from "@material-ui/core/Typography"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 
-interface State {
+interface Props {
+  addHandle?: (valuse: State) => void
+}
+
+export interface State {
   fullname: string
   kananame: string
   organization: string
@@ -60,7 +64,7 @@ const validation = () =>
     message: Yup.string().required("必須項目です"),
   })
 
-export default function Contact() {
+export default function Contact({ addHandle }: Props) {
   const initState: State = {
     fullname: "",
     kananame: "",
@@ -71,7 +75,10 @@ export default function Contact() {
     message: "",
   }
   const handleSubmit = (values: State, actions: FormikHelpers<State>) => {
-    alert(JSON.stringify(values, null, 2))
+    // alert(JSON.stringify(values, null, 2))
+    if (addHandle) {
+      addHandle(values)
+    }
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
