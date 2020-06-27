@@ -110,6 +110,7 @@ export default function Contact({ addHandle }: Props) {
             action="/contact/thanks/"
             data-netlify={true}
             data-netlify-honeypot="bot-field"
+            data-netlify-recaptcha={true}
             onSubmit={formik.handleSubmit}
           >
             {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
@@ -210,6 +211,7 @@ export default function Contact({ addHandle }: Props) {
               {formik.isSubmitting && <LinearProgress />}
               <br />
               <Grid container justify="center">
+                <div data-netlify-recaptcha="true"></div>
                 <Button
                   type="submit"
                   variant="contained"
