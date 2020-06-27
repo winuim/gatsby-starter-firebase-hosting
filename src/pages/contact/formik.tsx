@@ -49,7 +49,7 @@ const menuInquiry = [
 ]
 
 interface Props {
-  handleSubmit: (v: States) => void
+  handleSubmit?: (v: States) => void
 }
 
 export interface States {
@@ -114,7 +114,9 @@ export default function FormikPage({ handleSubmit }: Props) {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               setSubmitting(false)
-              handleSubmit(values)
+              if (handleSubmit) {
+                handleSubmit(values)
+              }
               alert(JSON.stringify(values, null, 2))
             }, 500)
           }}
@@ -128,6 +130,12 @@ export default function FormikPage({ handleSubmit }: Props) {
             >
               {/* You still need to add the hidden input with the form name to your JSX form */}
               <input type="hidden" name="form-name" value="formik" />
+              <p hidden={true}>
+                <label>
+                  Don’t fill this out if you're human:{" "}
+                  <input name="bot-field" />
+                </label>
+              </p>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                   <Field
@@ -225,6 +233,7 @@ export default function FormikPage({ handleSubmit }: Props) {
                 {isSubmitting && <LinearProgress />}
                 <br />
                 <Grid container justify="center">
+                  <div data-netlify-recaptcha="true"></div>
                   <Button
                     variant="contained"
                     color="primary"
