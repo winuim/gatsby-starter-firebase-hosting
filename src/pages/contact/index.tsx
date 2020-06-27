@@ -1,8 +1,13 @@
 import React from "react"
 import { navigate } from "gatsby"
-import { Form, Formik, FormikHelpers } from "formik"
+import { Field, Form, Formik, FormikHelpers } from "formik"
+import { TextField } from "formik-material-ui"
+import Button from "@material-ui/core/Button"
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
 
 import Layout from "../../components/layout"
+import SEO from "../../components/seo"
 
 const encode = (data: any) => {
   return Object.keys(data)
@@ -38,7 +43,10 @@ export default function Contact() {
 
   return (
     <Layout>
-      <h1>Contact</h1>
+      <SEO title="Contact" />
+      <Typography variant="h4" component="h1" gutterBottom align="center">
+        お問い合わせフォーム
+      </Typography>
       <Formik initialValues={initStates} onSubmit={handleSubmit}>
         {formik => (
           <Form
@@ -56,47 +64,54 @@ export default function Contact() {
                 Don’t fill this out: <input name="bot-field" />
               </label>
             </p>
-            <p>
-              <label>
-                Your name:
-                <br />
-                <input
-                  type="text"
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
                   id="name"
                   name="name"
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
+                  label="ご氏名"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
                 />
-              </label>
-            </p>
-            <p>
-              <label>
-                Your email:
-                <br />
-                <input
-                  type="email"
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
                   id="email"
                   name="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
+                  type="email"
+                  label="メールアドレス"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
                 />
-              </label>
-            </p>
-            <p>
-              <label>
-                Message:
-                <br />
-                <textarea
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
                   id="message"
                   name="message"
-                  onChange={formik.handleChange}
-                  value={formik.values.message}
+                  label="お問い合わせ内容"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                  multiline={true}
+                  rows={4}
                 />
-              </label>
-            </p>
-            <p>
-              <button type="submit">Send</button>
-            </p>
+              </Grid>
+              <Grid container justify="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={formik.isSubmitting}
+                >
+                  {"送信する"}
+                </Button>
+              </Grid>
+            </Grid>
           </Form>
         )}
       </Formik>
