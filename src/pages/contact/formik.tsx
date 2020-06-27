@@ -79,6 +79,12 @@ const validation = () =>
     inquiryText: Yup.string().required("必須項目です"),
   })
 
+const encode = (data: any) => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
 export default function FormikPage({ handleSubmit }: Props) {
   const classes = useStyles()
   const initValues: States = {
@@ -116,6 +122,17 @@ export default function FormikPage({ handleSubmit }: Props) {
               actions.setSubmitting(false)
               if (handleSubmit) {
                 handleSubmit(values)
+              } else {
+                actions.submitForm()
+                // fetch("/", {
+                //   method: "POST",
+                //   headers: {
+                //     "Content-Type": "application/x-www-form-urlencoded",
+                //   },
+                //   body: encode({ "form-name": "contact", ...values }),
+                // })
+                //   .then(() => alert("Success!"))
+                //   .catch(error => alert(error))
               }
               alert(JSON.stringify(values, null, 2))
             }, 500)
