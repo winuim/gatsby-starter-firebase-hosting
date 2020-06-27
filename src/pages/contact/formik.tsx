@@ -4,12 +4,12 @@ import { Formik, Field } from "formik"
 import { TextField } from "formik-material-ui"
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
-import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import LinearProgress from "@material-ui/core/LinearProgress"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 
+import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -92,160 +92,146 @@ export default function FormikPage({ handleSubmit }: Props) {
   }
 
   return (
-    <Container>
+    <Layout>
       <SEO title="Form" />
-      <header>ヘッダー</header>
-      <main>
-        <div className={classes.root}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h4"
-                component="h1"
-                gutterBottom
-                align="center"
-              >
-                お問い合わせフォーム
-              </Typography>
-              <img
-                className={classes.img}
-                src="https://source.unsplash.com/random/400x200"
-                alt=""
-              />
-            </Grid>
+      <div className={classes.root}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h4" component="h1" gutterBottom align="center">
+              お問い合わせフォーム
+            </Typography>
+            <img
+              className={classes.img}
+              src="https://source.unsplash.com/random/400x200"
+              alt=""
+            />
           </Grid>
-          <br />
-          <Formik
-            initialValues={initValues}
-            validationSchema={validation()}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false)
-                handleSubmit(values)
-                alert(JSON.stringify(values, null, 2))
-              }, 500)
-            }}
-          >
-            {({ submitForm, isSubmitting }) => (
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    id="fullname"
-                    name="fullname"
-                    type="fullname"
-                    label="ご氏名"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    id="kananame"
-                    name="kananame"
-                    type="kananame"
-                    label="ご氏名【カナ】"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    id="organization"
-                    name="organization"
-                    type="organization"
-                    label="会社名"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    id="tel"
-                    name="tel"
-                    type="tel"
-                    label="電話番号"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    id="email"
-                    name="email"
-                    type="email"
-                    label="メールアドレス"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    id="inquiry-type"
-                    name="inquiryType"
-                    type="inquiryType"
-                    label="お問い合わせ項目"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                    select={true}
-                  >
-                    {menuInquiry.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </Field>
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    id="inquiry-text"
-                    name="inquiryText"
-                    type="inquiryText"
-                    label="お問い合わせ内容"
-                    variant="outlined"
-                    required={true}
-                    fullWidth={true}
-                    multiline={true}
-                    rows={4}
-                  />
-                </Grid>
-                {isSubmitting && <LinearProgress />}
-                <br />
-                <Grid container justify="center">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={isSubmitting}
-                    onClick={submitForm}
-                    type="submit"
-                  >
-                    {"送信する"}
-                  </Button>
-                </Grid>
+        </Grid>
+        <br />
+        <Formik
+          initialValues={initValues}
+          validationSchema={validation()}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              setSubmitting(false)
+              handleSubmit(values)
+              alert(JSON.stringify(values, null, 2))
+            }, 500)
+          }}
+        >
+          {({ submitForm, isSubmitting }) => (
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  id="fullname"
+                  name="fullname"
+                  type="fullname"
+                  label="ご氏名"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                />
               </Grid>
-            )}
-          </Formik>
-        </div>
-      </main>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  id="kananame"
+                  name="kananame"
+                  type="kananame"
+                  label="ご氏名【カナ】"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  component={TextField}
+                  id="organization"
+                  name="organization"
+                  type="organization"
+                  label="会社名"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  id="tel"
+                  name="tel"
+                  type="tel"
+                  label="電話番号"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  id="email"
+                  name="email"
+                  type="email"
+                  label="メールアドレス"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  id="inquiry-type"
+                  name="inquiryType"
+                  type="inquiryType"
+                  label="お問い合わせ項目"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                  select={true}
+                >
+                  {menuInquiry.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Field>
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  component={TextField}
+                  id="inquiry-text"
+                  name="inquiryText"
+                  type="inquiryText"
+                  label="お問い合わせ内容"
+                  variant="outlined"
+                  required={true}
+                  fullWidth={true}
+                  multiline={true}
+                  rows={4}
+                />
+              </Grid>
+              {isSubmitting && <LinearProgress />}
+              <br />
+              <Grid container justify="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={submitForm}
+                  type="submit"
+                >
+                  {"送信する"}
+                </Button>
+              </Grid>
+            </Grid>
+          )}
+        </Formik>
+      </div>
       <br />
-      <footer>
-        <Typography variant="body2" color="textSecondary" align="center">
-          {"Copyright © Rockhopper Developer"} {new Date().getFullYear()}
-          {"."}
-        </Typography>
-      </footer>
-    </Container>
+    </Layout>
   )
 }
