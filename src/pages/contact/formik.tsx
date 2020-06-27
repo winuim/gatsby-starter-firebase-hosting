@@ -128,7 +128,7 @@ export default function FormikPage({ handleSubmit }: Props) {
                   headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                   },
-                  body: encode({ "form-name": "contact", ...values }),
+                  body: encode({ "form-name": "formik", ...values }),
                 })
                   .then(() => alert("Success!"))
                   .catch(error => alert(error))
