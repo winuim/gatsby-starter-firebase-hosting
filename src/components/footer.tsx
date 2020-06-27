@@ -9,6 +9,7 @@ interface State {}
 
 const Footer = ({ copyright = "" }: Props) => (
   <footer>
+    <br />
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright ©"}
       {copyright}
