@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { navigate } from "gatsby"
 import { Field, Form, Formik, FormikHelpers } from "formik"
 import { TextField } from "formik-material-ui"
@@ -70,6 +70,7 @@ const validation = () =>
 export default function Contact({ addHandle }: Props) {
   const formRef = React.createRef<HTMLFormElement>()
   const recaptchaRef = React.createRef<ReCAPTCHA>()
+  const [disableSubmit, setDisableSubmit] = useState(true)
 
   const initState: State = {
     fullname: "",
@@ -222,13 +223,17 @@ export default function Contact({ addHandle }: Props) {
               <br />
               <Grid container justify="center">
                 {RECAPTCHA_KEY && (
-                  <Recaptcha ref={recaptchaRef} sitekey={RECAPTCHA_KEY} />
+                  <Recaptcha
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_KEY}
+                    onChange={token => setDisableSubmit(false)}
+                  />
                 )}
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
-                  disabled={formik.isSubmitting}
+                  disabled={disableSubmit || formik.isSubmitting}
                 >
                   {"送信する"}
                 </Button>
