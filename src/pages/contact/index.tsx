@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 
-const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY
+const RECAPTCHA_KEY = process.env.GATSBY_SITE_RECAPTCHA_KEY
 
 interface Props {
   addHandle?: (valuse: State) => void
