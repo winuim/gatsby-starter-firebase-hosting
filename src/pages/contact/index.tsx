@@ -2,6 +2,7 @@ import React from "react"
 import { navigate } from "gatsby"
 import { Field, Form, Formik, FormikHelpers } from "formik"
 import { TextField } from "formik-material-ui"
+import Recaptcha, { ReCAPTCHA } from "react-google-recaptcha"
 import * as Yup from "yup"
 import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
@@ -11,6 +12,8 @@ import Typography from "@material-ui/core/Typography"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
+
+const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY
 
 interface Props {
   addHandle?: (valuse: State) => void
@@ -65,6 +68,9 @@ const validation = () =>
   })
 
 export default function Contact({ addHandle }: Props) {
+  const formRef = React.createRef<HTMLFormElement>()
+  const recaptchaRef = React.createRef<ReCAPTCHA>()
+
   const initState: State = {
     fullname: "",
     kananame: "",
@@ -76,6 +82,9 @@ export default function Contact({ addHandle }: Props) {
   }
   const handleSubmit = (values: State, actions: FormikHelpers<State>) => {
     // alert(JSON.stringify(values, null, 2))
+    const formName = formRef.current?.name ?? "contact"
+    const formAction = formRef.current?.action ?? "/contact/thanks/"
+    const recaptchaValue = recaptchaRef?.current?.getValue()
     if (addHandle) {
       addHandle(values)
     }
@@ -83,11 +92,12 @@ export default function Contact({ addHandle }: Props) {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        "form-name": "contact",
+        "form-name": formName,
+        "g-recaptcha-response": recaptchaValue,
         ...values,
       }),
     })
-      .then(() => navigate("/contact/thanks/"))
+      .then(() => navigate(formAction))
       .catch(error => alert(error))
       .finally(() => actions.setSubmitting(false))
   }
@@ -111,6 +121,7 @@ export default function Contact({ addHandle }: Props) {
             data-netlify={true}
             data-netlify-honeypot="bot-field"
             onSubmit={formik.handleSubmit}
+            ref={formRef}
           >
             {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
             <input type="hidden" name="form-name" value="contact" />
@@ -210,6 +221,9 @@ export default function Contact({ addHandle }: Props) {
               {formik.isSubmitting && <LinearProgress />}
               <br />
               <Grid container justify="center">
+                {RECAPTCHA_KEY && (
+                  <Recaptcha ref={recaptchaRef} sitekey={RECAPTCHA_KEY} />
+                )}
                 <Button
                   type="submit"
                   variant="contained"
